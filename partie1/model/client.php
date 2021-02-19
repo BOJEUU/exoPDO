@@ -12,8 +12,8 @@ class Clients extends DataBase{
         $result20Client = $queryObj20Client->fetchAll();
         return $result20Client;
     }
-    public function getCardCLient(){
-        $queryCardClient = 'SELECT `clients`.`id` , `lastname` , `firstname`, `cards`.`cardNumber`,`cardtypes`.`type` FROM `clients` INNER JOIN `cards` ON `clients`.`cardNumber`=`cards`.`cardNumber` INNER JOIN `cardtypes` ON `cards`.`cardTypesId`=`cardtypes`.`id` WHERE `cards`.`cardTypesID`=1';
+    public function getCardCLient($type){
+        $queryCardClient = 'SELECT `clients`.`id` , `lastname` , `firstname`, `cards`.`cardNumber`,`cardtypes`.`type` FROM `clients` INNER JOIN `cards` ON `clients`.`cardNumber`=`cards`.`cardNumber` INNER JOIN `cardtypes` ON `cards`.`cardTypesId`=`cardtypes`.`id` WHERE `cards`.`cardTypesID`='.$type;
         $queryObjCardClient = $this->dataBase->query($queryCardClient);
         $resultCardClient = $queryObjCardClient->fetchAll();
         return $resultCardClient;
