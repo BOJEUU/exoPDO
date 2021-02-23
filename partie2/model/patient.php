@@ -30,7 +30,7 @@ class Patient extends DataBase
      */
     public function showPatient()
     {
-        $query = "SELECT * FROM hospitale2n.patients";
+        $query = "SELECT * FROM `patients` ORDER BY `id` DESC";
         $queryObj = $this->dataBase->query($query);
         $resultQuery = $queryObj->fetchall();
         return $resultQuery;
@@ -45,13 +45,13 @@ class Patient extends DataBase
         $queryObj->bindValue(':id', $id, PDO::PARAM_STR);
         if ($queryObj->execute()) {
             // je retourne le resultat sous forme de tableau via la methode fetch car une seule ligne comme résultat
-            return $queryObj->fetchall();
+            return $queryObj->fetch();
         } else {
             return false;
         }
     }
     /**
-     * méthode permettant de modifier les donnée de notre patient
+     * méthode permettant de modifier les données de notre patient
      */
     public function updatePatient($lastname, $firstname, $birthdate, $phone, $mail, $id)
     {

@@ -1,17 +1,18 @@
 <?php
+session_start();
 require "../model/database.php";
 require "../model/patient.php";
 $message = [];
 $error = [];
 
 $updatePatient = false;
-if (!empty($_POST['modifyPatient'])) {
+if (!empty($_POST["id"])) {
     // Création d'un nouvel objet
-    if (isset($_GET["id"])) {
-        $id = $_GET["id"];
-        $patientsObj = new Patient;
+    
+        $id = $_POST["id"];
+        $patientObj = new Patient;
         $detailPatient = $patientObj->detailPatient($id);
-    }
+        $_SESSION["idPatientToUpdate"] = $detailPatient["id"];
 }
 if (isset($_POST["submit"])) {
     $getlastname = $_POST["lastname"];
@@ -19,7 +20,7 @@ if (isset($_POST["submit"])) {
     $getbirthdate = $_POST["birthdate"];
     $getphone = $_POST["phone"];
     $getmail = $_POST["mail"];
-    $getid = $_POST["id"];
+    $getid = $_SESSION["idPatientToUpdate"];
     if($patientObj->updatePatient($getlastname, $getfirstname, $getbirthdate, $getphone, $getmail,$getid)){
         $message["update"] = "patient modifier";
         $updatePatient = true ; 
@@ -27,3 +28,4 @@ if (isset($_POST["submit"])) {
         $message["update"] = "erreur";
     }
 }
+
