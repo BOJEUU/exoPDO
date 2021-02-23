@@ -17,20 +17,18 @@ require_once "../controller/liste_patient_controller.php" ?>
 
 <body class="bg">
     <div class="row h-100 d-flex align-content-center justify-content-center">
-                <?php foreach ($detailPatient as $patient) { ?>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Nom: <?php echo $patient["lastname"] ?></h5>
-                            <p class="card-text">Prénom: <?php echo $patient["firstname"] ?></p>
-                            <p class="card-text">Id: <?php echo $patient['id'] ?></p>
-                            <p class="card-text">Date de naissance: <?php echo $patient['birthdate'] ?></p>
-                            <p class="card-text">Téléhpone: <?php echo $patient['phone'] ?></p>
-                            <p class="card-text">Email: <?php echo $patient['mail'] ?></p>
-                            <a href="../view/update_patient.php?id=<?php echo $patient["id"] ?>" class="btn btn-primary">modifier le patient</a>
-                            <a href="../view/liste_patients.php" class="btn btn-primary mt-1">retour</a>
-                        </div>
-                    </div>
-                <?php } ?>
+    <?php
+         // Nous testons si nous arrivons à obtenir les détails du client sous forme d'un tableau
+         if ($detailPatient) {
+            include 'include/detail_patient.php';
+            // si KO, nous indiquons à l'utilisateur que le patient n'est pas présent
+         } else { ?>
+            <p class="h5 text-danger text-center mb-3"></i>Patient non présent</p>
+            <div class="text-center">
+               <a type="button" href="liste_patients.php" class="btn btn-sm btn-outline-secondary">Liste des patients</a>
+            </div>
+         <?php
+         } ?>  
                 
     </div>
 

@@ -38,12 +38,17 @@ class Patient extends DataBase
     /**
      * méthode permettant d'afficher un patient en détails de notre base de donnée
      */
-    public function detailPatient($id)
+    public function detailPatient(string $id)
     {
-        $query = "SELECT * FROM hospitale2n.patients WHERE id =$id";
-        $queryObj = $this->dataBase->query($query);
-        $resultQuery = $queryObj->fetchall();
-        return $resultQuery;
+        $query = "SELECT * FROM hospitale2n.patients WHERE id =:id";
+        $queryObj = $this->dataBase->prepare($query);
+        $queryObj->bindValue(':id', $id, PDO::PARAM_STR);
+        if ($queryObj->execute()) {
+            // je retourne le resultat sous forme de tableau via la methode fetch car une seule ligne comme résultat
+            return $queryObj->fetchall();
+        } else {
+            return false;
+        }
     }
     /**
      * méthode permettant de modifier les donnée de notre patient
@@ -71,6 +76,13 @@ class Patient extends DataBase
     }
     public function deletePatient($id){
         $query = "DELETE FROM patients WHERE id = $id";
-        $this->dataBase->query($query);
+        $queryObj = $this->dataBase->prepare($query);
+        $queryObj->bindValue(':id', $id, PDO::PARAM_STR);
+        if ($queryObj->execute()) {
+            // je retourne le resultat sous forme de tableau via la methode fetch car une seule ligne comme résultat
+            return $queryObj->fetchall();
+        } else {
+            return false;
+        }
     }
 }

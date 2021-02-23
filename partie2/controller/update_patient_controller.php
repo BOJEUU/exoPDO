@@ -13,12 +13,10 @@ if (isset($_POST["submit"])) {
     $getbirthdate = $_POST["birthdate"];
     $getphone = $_POST["phone"];
     $getmail = $_POST["mail"];
-    $getid = $_GET["id"];
+    $getid = $_POST["id"];
     if($patientObj->updatePatient($getlastname, $getfirstname, $getbirthdate, $getphone, $getmail,$getid)){
         $message["update"] = "patient modifier";
     }else{
         $message["update"] = "erreur";
     }
-  
-    
 }

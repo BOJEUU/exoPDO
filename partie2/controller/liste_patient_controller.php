@@ -7,6 +7,8 @@ $patientArray = $patientObj->showPatient();
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
     $detailPatient = $patientObj->detailPatient($id);
+}else{
+    $detailPatient = false;
 }
 if (isset($_POST["id"])) {
     $id = $_POST["id"];

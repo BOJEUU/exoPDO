@@ -45,6 +45,9 @@ require_once "../controller/update_patient_controller.php"
                         <input type="email" class="form-control" name="mail" value="<?php echo $patient["mail"] ?>">
                         <p class="text-danger"><?= isset($errors["mail"]) ? $errors['mail'] : "" ?></p>
                     </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control d-none" name="id" value="<?php echo $patient["id"] ?>">
+                    </div>
                     <button type="submit" name="submit" class="btn btn-primary">modifier</button>
                     <p class="text-danger"><?= isset($message["update"]) ? $message['update'] : "" ?></p>
                     <td><a href="../view/profil_patient.php?id=<?php echo $patient["id"] ?>"><button type="button" class="btn btn-primary ">Retour</button></a></td>

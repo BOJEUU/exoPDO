@@ -48,6 +48,7 @@ require_once "../controller/liste_patient_controller.php"
             </tbody>
         </table>
     </div>
+    <?= count($patientArray) == 0 ? '<p class="h6 text-center">Vous n\'avez pas de patients d\'enregistrés<p>' : '' ?>
     <div class="d-flex justify-content-around">
         <div ><a href="../view/ajout_patient.php"><button type="button" class="btn btn-primary btn-lg">Ajouter Patients</button></a></div>
         <div ><a href="../index.php"><button type="button" class="btn btn-primary btn-lg">Accueil</button></a></div>

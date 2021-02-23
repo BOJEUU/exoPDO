@@ -6,7 +6,7 @@ $regexBirth = '/^\d{4}(\-)(((0)[0-9])|((1)[0-2]))(\-)([0-2][0-9]|(3)[0-1])$/';
 $regexName = '/^[a-zA-Zéèê\-]+$/';
 $regexNumber = '/^0[0-9]{9}$/';
 $regexDate = '/^(([0]{1}[1-9]{1})|([1-2]{1}[0-9]{1})|([3]{1}[0-1]{1}))$/';
-
+$addPatient = false ;
 // mise en place d'un tableau d'erreurs
 $errors = [];
 // mise en place d'un tableau de messages
@@ -72,6 +72,7 @@ if (empty($errors) && isset($_POST["submit"])) {
     $getphone = htmlspecialchars($_POST['phone']);
     $getmail =  htmlspecialchars($_POST['mail']);
     if ($patientObj->insertPatient($getlastname, $getfirstname, $getbirthdate, $getphone, $getmail)) {
+        $addPatient = true;
         $messages['addPatient'] = 'Patient enregistré';
     } else {
         $messages['addPatient'] = 'Erreur de connexion lors de l\'enregistrement';
