@@ -2,10 +2,16 @@
 require "../model/database.php";
 require "../model/patient.php";
 $message = [];
-$patientObj = new Patient;
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
-    $detailPatient = $patientObj->detailPatient($id);
+$error = [];
+
+$updatePatient = false;
+if (!empty($_POST['modifyPatient'])) {
+    // Création d'un nouvel objet
+    if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+        $patientsObj = new Patient;
+        $detailPatient = $patientObj->detailPatient($id);
+    }
 }
 if (isset($_POST["submit"])) {
     $getlastname = $_POST["lastname"];
@@ -16,6 +22,7 @@ if (isset($_POST["submit"])) {
     $getid = $_POST["id"];
     if($patientObj->updatePatient($getlastname, $getfirstname, $getbirthdate, $getphone, $getmail,$getid)){
         $message["update"] = "patient modifier";
+        $updatePatient = true ; 
     }else{
         $message["update"] = "erreur";
     }

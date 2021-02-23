@@ -17,43 +17,30 @@ require_once "../controller/update_patient_controller.php"
 
 <body class="bg">
     <div class="d-flex col-12 justify-content-center">
-        <?php foreach ($detailPatient as $patient) { ?>
-            <div class="opacity bg-white rounded p-5 mt-2">
-                <form method="POST" action="../view/update_patient.php?id=<?= $_GET['id'] ?>">
-                    <div class="mb-3">
-                        <label for="lastname" class="form-label">Prénom:</label>
-                        <input type="text" class="form-control" name="firstname" value="<?php echo $patient["lastname"] ?>">
-                        <p class="text-danger"><?= isset($errors["firstname"]) ? $errors['firstname'] : "" ?></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastname" class="form-label">Nom:</label>
-                        <input type="text" class="form-control" name="lastname" value="<?php echo $patient["firstname"] ?>">
-                        <p class="text-danger"><?= isset($errors["lastname"]) ? $errors['lastname'] : "" ?></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="birth" class="form-label">Date de naissance:</label>
-                        <input type="date" class="form-control" name="birthdate" value="<?php echo $patient["birthdate"] ?>">
-                        <p class="text-danger"><?= isset($errors["birthdate"]) ? $errors['birthdate'] : "" ?></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Téléphone:</label>
-                        <input type="number" class="form-control" name="phone" value="<?php echo $patient["phone"] ?>">
-                        <p class="text-danger"><?= isset($errors["phone"]) ? $errors['phone'] : "" ?></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" name="mail" value="<?php echo $patient["mail"] ?>">
-                        <p class="text-danger"><?= isset($errors["mail"]) ? $errors['mail'] : "" ?></p>
-                    </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control d-none" name="id" value="<?php echo $patient["id"] ?>">
-                    </div>
-                    <button type="submit" name="submit" class="btn btn-primary">modifier</button>
-                    <p class="text-danger"><?= isset($message["update"]) ? $message['update'] : "" ?></p>
-                    <td><a href="../view/profil_patient.php?id=<?php echo $patient["id"] ?>"><button type="button" class="btn btn-primary ">Retour</button></a></td>
-                </form>
+    <?php
+         // Nous allons afficher le formulaire : 
+         //    si modifyPatient n'est pas vide = nous venons bien de la page detailPatient
+         //    si le tableau d'erreurs n'est pas vide = le formulaire contient des erreurs
+         if (!empty($_POST['modifyPatient']) || !empty($errors)) {
+            include "include/form_updatePatient.php"; 
+            // si la requête d'update passe, nous l'indiquons à l'utilisateur via un message
+         } else if ($updatePatient) { ?>
+            <p class="h5 text-center text-info">Les modifications ont bien été prises en compte</p>
+            <div class="text-center mt-4">
+               <a type="button" href="view-listPatients.php" class="btn btn-sm btn-outline-secondary">Liste des patients</a>
             </div>
-        <?php } ?>
+         <?php
+            // si aucune condition n'est remplie, cela nous indique que l'utilisateur a directement saisi l'URL, nous lui indiquons via un message
+         } else { ?>
+            <p class="h5 text-center text-info">Veuillez selectionner un patient</p>
+            <div class="text-center mt-4">
+               <a type="button" href="liste_patients.php" class="btn btn-sm btn-outline-secondary">Liste des patients</a>
+            </div>
+         <?php
+         } ?>
+
+               
+           
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
